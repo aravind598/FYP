@@ -1,0 +1,93 @@
+{
+  "num_gpus": 4,
+  "image_snapshot_ticks": 50,
+  "network_snapshot_ticks": 50,
+  "metrics": [
+    "fid50k_full"
+  ],
+  "random_seed": 0,
+  "training_set_kwargs": {
+    "class_name": "training.dataset.ImageFolderDataset",
+    "path": "/workspace/Diffusion-GAN/512-anime-16K.zip",
+    "use_labels": false,
+    "max_size": 10036,
+    "xflip": true,
+    "resolution": 512
+  },
+  "data_loader_kwargs": {
+    "pin_memory": true,
+    "num_workers": 3,
+    "prefetch_factor": 2
+  },
+  "G_kwargs": {
+    "class_name": "training.networks.Generator",
+    "z_dim": 512,
+    "w_dim": 512,
+    "mapping_kwargs": {
+      "num_layers": 8
+    },
+    "synthesis_kwargs": {
+      "channel_base": 65536,
+      "channel_max": 512,
+      "num_fp16_res": 4,
+      "conv_clamp": 256
+    }
+  },
+  "D_kwargs": {
+    "class_name": "training.networks.Discriminator",
+    "block_kwargs": {},
+    "mapping_kwargs": {},
+    "epilogue_kwargs": {
+      "mbstd_group_size": 4
+    },
+    "channel_base": 65536,
+    "channel_max": 512,
+    "num_fp16_res": 4,
+    "conv_clamp": 256
+  },
+  "G_opt_kwargs": {
+    "class_name": "torch.optim.Adam",
+    "lr": 0.002,
+    "betas": [
+      0,
+      0.99
+    ],
+    "eps": 1e-08
+  },
+  "D_opt_kwargs": {
+    "class_name": "torch.optim.Adam",
+    "lr": 0.002,
+    "betas": [
+      0,
+      0.99
+    ],
+    "eps": 1e-08
+  },
+  "loss_kwargs": {
+    "class_name": "training.loss.StyleGAN2Loss",
+    "r1_gamma": 5,
+    "pl_weight": 0,
+    "style_mixing_prob": 0
+  },
+  "total_kimg": 25000,
+  "batch_size": 32,
+  "batch_gpu": 8,
+  "ema_kimg": 10,
+  "ema_rampup": null,
+  "ada_target": 0.6,
+  "ada_kimg": 100,
+  "diffusion_kwargs": {
+    "class_name": "training.diffusion.Diffusion",
+    "beta_schedule": "linear",
+    "beta_start": 0.0001,
+    "beta_end": 0.02,
+    "t_min": 10,
+    "t_max": 1000,
+    "noise_std": 0.05,
+    "aug": "diff",
+    "ada_maxp": 0.25,
+    "ts_dist": "priority"
+  },
+  "resume_pkl": "/workspace/Diffusion-GAN/diffusion-stylegan2/training-runs/00011-512-anime-16K-mirror-autov3-batch8-target0.6-ada_kimg100-ts_dist-priority-image_augdiff-noise_sd0.05/best_model.pkl",
+  "run_dir": "training-runs/00012-512-anime-16K-mirror-autov3-batch32-target0.6-ada_kimg100-ts_dist-priority-image_augdiff-noise_sd0.05-resumecustom"
+}

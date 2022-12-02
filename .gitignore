@@ -1,0 +1,11 @@
+*.pkl
+*.pt
+*.zip
+*.jpg
+*.png
+*.jpeg
+*.txt
+*.jsonl
+**/log.txt
+*.0
+*.pdf
