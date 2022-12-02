@@ -9,3 +9,8 @@
 **/log.txt
 *.0
 *.pdf
+*.mnet
+*.snet
+*.ckpt
+*.npy
+*.onnx
